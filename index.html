@@ -3,7 +3,7 @@
 
 <head>
 <meta charset="utf-8">
-<title>Updated WCAG Parsing Validation Filter bookmarklet</title>
+<title>WCAG Parsing Validation Filter bookmarklet</title>
 <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 <style>article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }</style>
 <meta name="viewport" content="width=device-width">
@@ -13,9 +13,35 @@
 
 <h1>Updated WCAG Parsing Validation Filter bookmarklet</h1>
 
-<h2>A version that produces a report in a JavaScript alert</h2>
+<p>Based on <a href="https://developer.paciellogroup.com/blog/2012/02/wcag-2-0-parsing-error-bookmarklet/">The Paciello Group's WCAG 2.0 parsing error bookmarklet</a>, this version produces a summary that can then be copied and pasted into a report or bug tracker.</p>
 
-<p><a href="javascript:(function(){javascript:(function(){var%20filterStrings=[%22tag%20seen%22,%22Stray%20end%20tag%22,%22Bad%20start%20tag%22,%22violates%20nesting%20rules%22,%22Duplicate%20ID%22,%22first%20occurrence%20of%20ID%22,%22Unclosed%20element%22,%22not%20allowed%20as%20child%20of%20element%22,%22unclosed%20elements%22,%22not%20allowed%20on%20element%22,%22unquoted%20attribute%20value%22,%22Duplicate%20attribute%22],filterRE=filterStrings.join(%22|%22),i,nAcc=0,nErr=0,result,resultText,results,resultsErrors={},resultsWarnings={},root=document.getElementById(%22results%22);if(!root){return;}results=root.getElementsByTagName(%22li%22);for(i=results.length-1;i>=0;i--){result=results[i];if(result.id.substr(0,3)===%22vnu%22){if(result.className!==%22info%22){nErr=nErr+1;}resultText=%22%22+result.textContent;resultText=resultText.substring(0,resultText.indexOf(%27.%27));if(resultText.match(filterRE)==null){result.style.display=%22none%22;result.className=result.className+%22steveNoLike%22;}else{nAcc=nAcc+1;if(resultText.substring(0,6)==%27Error:%27){resultsErrors[resultText.substr(7)]=true;}}if(resultText.substring(0,8)==%27Warning:%27){resultsWarnings[resultText.substr(9)]=true;}}}resultText=%22%22;for(i%20in%20resultsWarnings){if(resultsWarnings.hasOwnProperty(i)){resultText=i+%22;%20%22+resultText;}}resultText=%22\n\nWarnings:%20\n%22+resultText;for(i%20in%20resultsErrors){if(resultsErrors.hasOwnProperty(i)){resultText=i+%22;%20%22+resultText;}}resultText=nErr+%22%20errors%20and%20warnings.\n\n%22+nAcc+%22%20errors%20found%20that%20impact%20accessibility:%20%22+resultText;alert(resultText);})();})();">Filter W3C Nu Validation Accessibility Results</a></p>
+<h2>Usage</h2>
+
+<ol>
+<li>Right click on the bookmarklet link below and bookmark it in your browser:<br>
+  <a href="javascript:(function(){javascript:(function(){var%20filterStrings=[%22tag%20seen%22,%22Stray%20end%20tag%22,%22Bad%20start%20tag%22,%22violates%20nesting%20rules%22,%22Duplicate%20ID%22,%22first%20occurrence%20of%20ID%22,%22Unclosed%20element%22,%22not%20allowed%20as%20child%20of%20element%22,%22unclosed%20elements%22,%22not%20allowed%20on%20element%22,%22unquoted%20attribute%20value%22,%22Duplicate%20attribute%22],filterRE=filterStrings.join(%22|%22),i,nAcc=0,nErr=0,result,resultText,results,resultsErrors={},resultsWarnings={},root=document.getElementById(%22results%22);if(!root){return;}results=root.getElementsByTagName(%22li%22);for(i=results.length-1;i>=0;i--){result=results[i];if(result.id.substr(0,3)===%22vnu%22){if(result.className!==%22info%22){nErr=nErr+1;}resultText=%22%22+result.textContent;resultText=resultText.substring(0,resultText.indexOf(%27.%27));if(resultText.match(filterRE)==null){result.style.display=%22none%22;result.className=result.className+%22steveNoLike%22;}else{nAcc=nAcc+1;if(resultText.substring(0,6)==%27Error:%27){resultsErrors[resultText.substr(7)]=true;}}if(resultText.substring(0,8)==%27Warning:%27){resultsWarnings[resultText.substr(9)]=true;}}}resultText=%22%22;for(i%20in%20resultsWarnings){if(resultsWarnings.hasOwnProperty(i)){resultText=i+%22;%20%22+resultText;}}resultText=%22\n\nWarnings:%20\n%22+resultText;for(i%20in%20resultsErrors){if(resultsErrors.hasOwnProperty(i)){resultText=i+%22;%20%22+resultText;}}resultText=nErr+%22%20errors%20and%20warnings.\n\n%22+nAcc+%22%20errors%20found%20that%20impact%20accessibility:%20%22+resultText;alert(resultText);})();})();">Filter W3C Nu Validation Accessibility Results</a>
+</li>
+<li>Run the <a href="https://validator.w3.org/nu/">W3C's Nu validator</a> on a page.
+  <ul>
+  <li>If you have a static website, you can <a href="https://validator.w3.org/nu/?doc=https%3A%2F%2Fwww.bbc.co.uk%2F">run the Nu validator on a URL directly</a>.</li>
+  <li>If you are working with dynamic web technologies, such as AngularJS, you will want to test the browser-rendered DOM instead using your browser's developer tools console:
+    <ul>
+    <li>Bring up the DOM tree in your browser's developer tools. For example, in Chrome this can be done by bringing up the Elements tab of the Developer Tools console. Do not copy the page's original source code from "view source".</li>
+    <li>Right click on the <code>&lt;html&gt;</code> DOM node in your code and select 'Copy'. In Chrome, select 'Copy > Copy outerHTML'.</li>
+    <li>Paste the code into the <a href="https://validator.w3.org/nu/#textarea">Nu validator's text input</a>. This appears when you select 'text input' from the 'Check by' dropdown.</li>
+    <li>Be sure to also then copy your page's <code>&lt;!DOCTYPE &hellip;&gt;</code>, as this is not copied for you.</li>
+    </ul>
+  </li>
+  </ul>
+</li>
+<li>Run the validator by pressing the 'Check' button.</li>
+<li>Once the validation results have appeared, filter the results to display only WCAG-related issues by triggering the bookmarklet from your browser bookmarks.</li>
+<li>A pop-up summary of the accessibility issues will appear. This summary is selectable and copyable in most browsers, which is handy for pasting into a report or bug tracker.</li>
+</ol>
+
+<h2>Bookmarklet code</h2>
+
+<p>You may prefer to install the bookmarklet by copying this JavaScript code into the URL of a bookmark in your browser:</p>
 
 <textarea rows="10" cols="70" onfocus="this.select()">
 javascript:(function(){javascript:(function(){var filterStrings=["tag seen","Stray end tag","Bad start tag","violates nesting rules","Duplicate ID","first occurrence of ID","Unclosed element","not allowed as child of element","unclosed elements","not allowed on element","unquoted attribute value","Duplicate attribute"],filterRE=filterStrings.join("|"),i,nAcc=0,nErr=0,result,resultText,results,resultsErrors={},resultsWarnings={},root=document.getElementById("results");if(!root){return;}results=root.getElementsByTagName("li");for(i=results.length-1;i>=0;i--){result=results[i];if(result.id.substr(0,3)==="vnu"){if(result.className!=="info"){nErr=nErr+1;}resultText=""+result.textContent;resultText=resultText.substring(0,resultText.indexOf('.'));if(resultText.match(filterRE)==null){result.style.display="none";result.className=result.className+"steveNoLike";}else{nAcc=nAcc+1;if(resultText.substring(0,6)=='Error:'){resultsErrors[resultText.substr(7)]=true;}}if(resultText.substring(0,8)=='Warning:'){resultsWarnings[resultText.substr(9)]=true;}}}resultText="";for(i in resultsWarnings){if(resultsWarnings.hasOwnProperty(i)){resultText=i+"; "+resultText;}}resultText="\n\nWarnings: \n"+resultText;for(i in resultsErrors){if(resultsErrors.hasOwnProperty(i)){resultText=i+"; "+resultText;}}resultText=nErr+" errors and warnings.\n\n"+nAcc+" errors found that impact accessibility: "+resultText;alert(resultText);})();})();
