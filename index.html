@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>Updated WCAG Parsing Validation Filter bookmarklet</title>
+<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<style>article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }</style>
+<meta name="viewport" content="width=device-width">
+</head>
+
+<body>
+
+<h1>Updated WCAG Parsing Validation Filter bookmarklet</h1>
+
+<h2>A version that produces a report in a JavaScript alert</h2>
+
+<p><a href="javascript:(function(){javascript:(function(){var%20filterStrings=[%22tag%20seen%22,%22Stray%20end%20tag%22,%22Bad%20start%20tag%22,%22violates%20nesting%20rules%22,%22Duplicate%20ID%22,%22first%20occurrence%20of%20ID%22,%22Unclosed%20element%22,%22not%20allowed%20as%20child%20of%20element%22,%22unclosed%20elements%22,%22not%20allowed%20on%20element%22,%22unquoted%20attribute%20value%22,%22Duplicate%20attribute%22],filterRE=filterStrings.join(%22|%22),i,nAcc=0,nErr=0,result,resultText,results,resultsErrors={},resultsWarnings={},root=document.getElementById(%22results%22);if(!root){return;}results=root.getElementsByTagName(%22li%22);for(i=results.length-1;i>=0;i--){result=results[i];if(result.id.substr(0,3)===%22vnu%22){if(result.className!==%22info%22){nErr=nErr+1;}resultText=%22%22+result.textContent;resultText=resultText.substring(0,resultText.indexOf(%27.%27));if(resultText.match(filterRE)==null){result.style.display=%22none%22;result.className=result.className+%22steveNoLike%22;}else{nAcc=nAcc+1;if(resultText.substring(0,6)==%27Error:%27){resultsErrors[resultText.substr(7)]=true;}}if(resultText.substring(0,8)==%27Warning:%27){resultsWarnings[resultText.substr(9)]=true;}}}resultText=%22%22;for(i%20in%20resultsWarnings){if(resultsWarnings.hasOwnProperty(i)){resultText=i+%22;%20%22+resultText;}}resultText=%22\n\nWarnings:%20\n%22+resultText;for(i%20in%20resultsErrors){if(resultsErrors.hasOwnProperty(i)){resultText=i+%22;%20%22+resultText;}}resultText=nErr+%22%20errors%20and%20warnings.\n\n%22+nAcc+%22%20errors%20found%20that%20impact%20accessibility:%20%22+resultText;alert(resultText);})();})();">Filter W3C Nu Validation Accessibility Results</a></p>
+
+</body>
+
+</html>
