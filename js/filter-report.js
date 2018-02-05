@@ -9,7 +9,7 @@
  * Bookmarklet
  * Compressed with Crunchinator:
  * http://ted.mielczarek.org/code/mozilla/bookmarklet.html
- * javascript:(function(){var filterStrings=["tag seen","Stray end tag","Bad start tag","violates nesting rules","Duplicate ID","first occurrence of ID","Unclosed element","not allowed as child of element","unclosed elements","not allowed on element","unquoted attribute value","Duplicate attribute"],filterRE=filterStrings.join("|"),i,nT=0,nP1=0,nP2=0,result,resultText,results,resultsP1={},resultsP2={},root=document.getElementById("results");if(!root){return;}results=root.getElementsByTagName("li");for(i=results.length-1;i>=0;i--){result=results[i];if(result.id.substr(0,3)==="vnu"){if(result.className!=="info"){nT=nT+1;}resultText=""+result.textContent;resultText=resultText.substring(0,resultText.indexOf('.'));if(resultText.match(filterRE)==null){result.style.display="none";result.className=result.className+"a11y-ignore";}else if(resultText.match("not allowed on element")!=null){resultsP2[resultText.substr(7)]=true;nP2=nP2+1;}else{resultsP1[resultText.substr(7)]=true;nP1=nP1+1;}}}resultText="";for(i in resultsP2){if(resultsP2.hasOwnProperty(i)){resultText=i+"; "+resultText;}}resultText=nP2+" low priority errors:\n"+resultText;for(i in resultsP1){if(resultsP1.hasOwnProperty(i)){resultText=i+"; "+resultText;}}resultText=nP1+" high priority errors:\n"+resultText;alert(nT+" errors and warnings.\nErrors that may impact accessibility:\n"+resultText);})();
+ * javascript:(function(){var filterStrings=["tag seen","Stray end tag","Bad start tag","violates nesting rules","Duplicate ID","first occurrence of ID","Unclosed element","not allowed as child of element","unclosed elements","not allowed on element","unquoted attribute value","Duplicate attribute"],filterRE=filterStrings.join("|"),i,nT=0,nP1=0,nP2=0,result,resultText,results,resultsP1={},resultsP2={},root=document.getElementById("results");if(!root){return;}results=root.getElementsByTagName("li");for(i=results.length-1;i>=0;i--){result=results[i];if(result.id.substr(0,3)==="vnu"){if(result.className!=="info"){nT=nT+1;}resultText=""+result.textContent;resultText=resultText.substring(0,resultText.indexOf('.'));if(resultText.match(filterRE)==null){result.style.display="none";result.className=result.className+"a11y-ignore";}else if(resultText.match("not allowed on element")!=null){resultsP2[resultText.substr(7)]=true;nP2=nP2+1;}else{resultsP1[resultText.substr(7)]=true;nP1=nP1+1;}}}resultText="";for(i in resultsP2){if(resultsP2.hasOwnProperty(i)){resultText=i+"; "+resultText;}}resultText="\n"+nP2+" low priority errors:\n"+resultText+"\n";for(i in resultsP1){if(resultsP1.hasOwnProperty(i)){resultText=i+"; "+resultText;}}resultText="\n"+nP1+" high priority errors:\n"+resultText+"\n";alert(nT+" errors and warnings.\nErrors that may impact accessibility:"+resultText);})();
  */
 javascript: (function () {
 	var filterStrings = ["tag seen", "Stray end tag", "Bad start tag", "violates nesting rules", "Duplicate ID", "first occurrence of ID", "Unclosed element", "not allowed as child of element", "unclosed elements", "not allowed on element", "unquoted attribute value", "Duplicate attribute"],
@@ -72,7 +72,7 @@ javascript: (function () {
 	//		resultText = i + "; " + resultText;
 	//	}
 	//}
-	//resultText = "\n\nWarnings: \n" + resultText;
+	//resultText = "\nWarnings:\n" + resultText;
 
 	// Add P2 errors to report
 	for (i in resultsP2) {
@@ -80,7 +80,7 @@ javascript: (function () {
 			resultText = i + "; " + resultText;
 		}
 	}
-	resultText = nP2 + " low priority errors:\n" + resultText;
+	resultText = "\n" + nP2 + " low priority errors:\n" + resultText + "\n";
 
 	// Add P1 errors to report
 	for (i in resultsP1) {
@@ -88,8 +88,8 @@ javascript: (function () {
 			resultText = i + "; " + resultText;
 		}
 	}
-	resultText = nP1 + " high priority errors:\n" + resultText;
+	resultText = "\n" + nP1 + " high priority errors:\n" + resultText + "\n";
 
 	// Output report
-	alert(nT + " errors and warnings.\nErrors that may impact accessibility:\n" + resultText);
+	alert(nT + " errors and warnings.\nErrors that may impact accessibility:" + resultText);
 })();
