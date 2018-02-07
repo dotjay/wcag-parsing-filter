@@ -1,0 +1,21 @@
+{
+  "name": "WCAG-parsing-filter",
+  "description": "An extension for filtering WCAG validator results for issues that affect accessibility",
+  "version": "0.0.1",
+  "license": "TODO",
+  "authors": [
+    "Darius Huntly <darius@crea.cymru>",
+    "Jon Gibbins"
+  ],
+  "scripts": {
+    "clean": "rm -rf extension/dist/ && mkdir extension/dist/ && rm -rf build && mkdir build && npm prune && npm install",
+    "version": "json -I -f extension/manifest.json -e \"this.version='`echo $npm_package_version`'\"",
+    "zip:firefox": "cp build/digparse.zip build/digparse.firefox-v$npm_package_version.xpi",
+    "zip:chrome": "cp build/digparse.zip build/digparse.chrome-v$npm_package_version.zip",
+    "zip": "git archive -o build/digparse.zip HEAD:extension && npm run zip:firefox && npm run zip:chrome && rm build/digparse.zip",
+    "build": "npm run clean && npm run compile && npm run zip",
+    "compile": "echo 'TODO'"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

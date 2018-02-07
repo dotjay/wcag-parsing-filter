@@ -1,0 +1,35 @@
+{
+  "description": "An extension for filtering WCAG validator results for issues that affect accessibility",
+  "manifest_version": 2,
+  "name": "WCAG-parsing-filter",
+  "version": "0.0.1",
+  "homepage_url": "https://labs.diginclusion.com/tools/bookmarklets/wcag-parsing-filter",
+  "icons": {
+    "64": "icons/logo-64.png"
+  },
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+V",
+        "mac": "Command+Shift+V"
+      }
+    }
+  },
+  "permissions": [
+    "activeTab"
+  ],
+  "web_accessible_resources": [
+    "dist/i18n/*.json"
+  ],
+  "browser_action": {
+    "browser_style": false,
+    "default_icon": "icons/logo-32.png",
+    "default_title": "WCAG Parsing Filter (Ctrl+Shift+V)",
+    "default_popup": "popup.html"
+  },
+  "applications": {
+    "gecko": {
+      "strict_min_version": "48.0"
+    }
+  }
+}
