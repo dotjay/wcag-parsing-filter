@@ -5,9 +5,9 @@ Tools that filter the results of the W3C's Nu validator to show only results tha
 ## Bookmarklet
 
 A bookmarklet tool that helps you filter the results of the W3C's Nu validator to show only results that are related to accessibility: 
-https://dotjay.github.io/wcag-parsing-filter/bookmarklet/
+[https://dotjay.github.io/wcag-parsing-filter/bookmarklet/](https://dotjay.github.io/wcag-parsing-filter/bookmarklet/)
 
 ## Extension (experimental)
 
 A browser extension version of the bookmarklet tool above: 
-https://github.com/dotjay/wcag-parsing-filter/tree/master/extension
+[https://github.com/dotjay/wcag-parsing-filter/tree/master/extension](https://github.com/dotjay/wcag-parsing-filter/tree/master/extension)
