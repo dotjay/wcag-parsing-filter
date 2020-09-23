@@ -1,33 +1,34 @@
 /**
- * WCAG 2.0 parsing error bookmarklet
+ * WCAG 2 Parsing Validation Filter bookmarklet
+ * Reports the number of errors and warnings found affecting accessibility and describes errors according to WCAG 2 Success Criterion 4.1.1 Parsing.
+ * Version 5
+ *
  * Author: Jon Gibbins
  * Based on code by Steve Faulkner
  * https://developer.paciellogroup.com/blog/2012/02/wcag-2-0-parsing-error-bookmarklet/
- * Version 4
- * Reports the number of errors and warnings found affecting accessibility and describes errors according to WCAG 2.0 Success Criterion 4.1.1 Parsing.
  *
  * Bookmarklet
  * Compressed with Crunchinator:
  * http://ted.mielczarek.org/code/mozilla/bookmarklet.html
- * javascript:(function(){var filterStrings=["tag seen","Stray end tag","Bad start tag","violates nesting rules","Duplicate ID","Unclosed element","not allowed as child of element","unclosed elements","unquoted attribute value","Duplicate attribute","descendant of an element with the attribute"],filterRE=filterStrings.join("|"),i,nT=0,nP1=0,result,resultText,results,resultsP1={},root=document.getElementById("results");if(!root){return;}results=root.getElementsByTagName("li");for(i=results.length-1;i>=0;i--){result=results[i];if(result.id.substr(0,3)==="vnu"){if(result.className!=="info"){nT=nT+1;}resultText=""+result.textContent;resultText=resultText.substring(0,resultText.indexOf('.'));if(resultText.match(filterRE)==null){result.style.display="none";result.className=result.className+"a11y-ignore";}else{resultsP1[resultText.substr(7)]=true;nP1=nP1+1;}}}resultText="";for(i in resultsP1){if(resultsP1.hasOwnProperty(i)){resultText=i+"; "+resultText;}}alert(nT+" validation errors and warnings.\n"+nP1+" errors that may impact accessibility:\n"+resultText);})();
+ * javascript:(function(){javascript:(function(){var filters=["tag seen","Stray end tag","Bad start tag","violates nesting rules","Duplicate ID","Unclosed element","not allowed as child of element","unclosed elements","unquoted attribute value","Duplicate attribute","descendant of an element with the attribute"].join("|"),i,nT=0,nP1=0,result,resultText,results,resultsP1={},root=document.getElementById("results");if(!root){return;}results=root.getElementsByTagName("li");for(i=results.length-1;i>=0;i--){result=results[i];if(result.id.substr(0,3)==="vnu"){if(result.className!=="info"){nT=nT+1;}resultText=""+result.textContent;resultText=resultText.substring(0,resultText.indexOf('.'));if(resultText.match(filters)==null){result.style.display="none";result.className=result.className+"a11y-ignore";}else{resultsP1[resultText.substr(7)]=true;nP1=nP1+1;}}}resultText="";for(i in resultsP1){if(resultsP1.hasOwnProperty(i)){resultText=resultText+"- "+i+"\n";}}alert(nT+" validation errors and warnings.\n"+nP1+" instances of errors known to create accessibility issues:\n"+resultText);})();})();
  */
 javascript: (function () {
-	var filterStrings = [
-			"tag seen",
-			"Stray end tag",
-			"Bad start tag",
-			"violates nesting rules",
-			"Duplicate ID",
-			// "first occurrence of ID", // Warning related to "Duplicate ID"
-			"Unclosed element",
-			"not allowed as child of element",
-			"unclosed elements",
-			// "not allowed on element", // "Attribute X not allowed on element"
-			"unquoted attribute value",
-			"Duplicate attribute",
-			"descendant of an element with the attribute"
-		],
-		filterRE = filterStrings.join("|"),
+	var filters = [
+				{"Duplicate ID"},
+				"tag seen",
+				"Stray end tag",
+				"Bad start tag",
+				"violates nesting rules",
+				"Duplicate ID"
+				// "first occurrence of ID", // Warning related to "Duplicate ID"
+				"Unclosed element",
+				"not allowed as child of element",
+				"unclosed elements",
+				// "not allowed on element", // "Attribute X not allowed on element"
+				"unquoted attribute value",
+				"Duplicate attribute",
+				"descendant of an element with the attribute"
+			].join("|"),
 		i,
 		nT = 0, // Total validation errors and warnings
 		nP1 = 0, // Errors affecting accessibility at P1
@@ -58,7 +59,7 @@ javascript: (function () {
 			resultText = "" + result.textContent; // Result to string
 			resultText = resultText.substring(0, resultText.indexOf('.')); // Trim
 
-			if (resultText.match(filterRE) == null) {
+			if (resultText.match(filters) == null) {
 				result.style.display = "none";
 				result.className = result.className + "a11y-ignore";
 			}
@@ -100,12 +101,12 @@ javascript: (function () {
 	// Add P1 errors to report
 	for (i in resultsP1) {
 		if (resultsP1.hasOwnProperty(i)) {
-			resultText = i + "; " + resultText;
+			resultText = resultText + "- " + i + "\n";
 		}
 	}
 	// resultText = "\n" + nP1 + " high priority errors:\n" + resultText + "\n";
 
 	// Output report
 	// alert(nT + " validation errors and warnings.\nErrors that may impact accessibility:" + resultText);
-	alert(nT + " validation errors and warnings.\n" + nP1 + " errors that may impact accessibility:\n" + resultText);
+	alert(nT + " validation errors and warnings.\n" + nP1 + " instances of errors known to create accessibility issues:\n" + resultText);
 })();
